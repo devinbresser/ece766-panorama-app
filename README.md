@@ -1,33 +1,17 @@
-Devin Bresser - ECE766 HW04 - Readme notes
+This repository contains a full implementation of a Panorama stitching app in Python. 
+The pipeline uses manual (NumPy) implementations of Homography matrix computation, backward warping, the RANSAC outlier removal mechanism, amd image blending & overlaying via distance transform to stitch together an arbitrary number of images of the same scene into a single panorama.
 
-All program designs are exclusively my own. I did discuss problem 1e conceptually with 
-my classmates Keshav Sharan Pachipala and Nico Ranabhat, but no code was provided or copied.
-All lines of code are written exclusively by me and I can explain every line.
-ChatGPT was used to assist with Python syntax, NumPy operations, and debugging.
+The final panorama stitching program works by first computing the dimensions of a canvas that will fit the center image and all of the warped images.
+It then backward warps all of the images onto this canvas, and finally systematically blends them together using the distance transform to achieve the result.
 
-Challenge 1a:
-No major comments, fairly straightforward implementation of homography using the formulas in the lecture videos.
-Source and destination points were selected using pixspy.com.
+Example inputs:
+![mountain_left](https://github.com/devinbresser/ece766-panorama-app/assets/66394890/80f9133c-f27c-4b93-a323-3e47ccdb26df)
 
-Challenge 1b:
-No major comments. Backward warp implementation based upon discussion of homogenous coordinates, applying homography/inverse homography, and dehomogenization in the lecture videos.
-I used the manual corner points for the billboard from this piazza post:
-https://piazza.com/class/lrqx4k5vfymnq/post/131
+![mountain_center](https://github.com/devinbresser/ece766-panorama-app/assets/66394890/3e6e3dab-ae5a-4d97-aee6-22d825c18476)
 
-Challenge 1c:
-No major comments. RANSAC algorithm implemented per lecture video.
-
-Challenge 1d:
-No major comments. Blend and overlay implemented per lecture video. 
-Blend method uses distance_transform_edt from scipy.ndimage.
-
-Challenge 1e:
-This function was by far the most challenging part of this assignment to complete.
-The hardest part was keeping track of the canvas size. I found the approach of pre-computing the maximum canvas size to work best. It is a slightly inefficient operation but it works.
-Thanks to this piazza student response: https://piazza.com/class/lrqx4k5vfymnq/post/154
-for helping me fine tune my method to make it work.
-
-Challenge 1f:
-I took three images of my desk (where I completed this homework) plus my sleeping cat. As per above, we can see that my homography, RANSAC, and warping are working, and my image stitching method works reasonably well on the real world images.
+![mountain_right](https://github.com/devinbresser/ece766-panorama-app/assets/66394890/938b1224-36db-4b43-bf69-598f83a144a0)
 
 
+
+Example output:
+![stitched1e](https://github.com/devinbresser/ece766-panorama-app/assets/66394890/942302b9-e83e-4b94-8e67-8d1d99abd8cb)
